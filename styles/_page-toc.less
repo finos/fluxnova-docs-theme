@@ -1,0 +1,99 @@
+.page-toc {
+  font-size: 14px;
+  line-height: 20px;
+
+  > h3 {
+    margin-top: 0;
+    text-transform: uppercase;
+    font-weight: lighter;
+    font-size: 14px;
+    margin-bottom: 14px;
+  }
+
+  a {
+    .navbar-a();
+  }
+
+  ul,
+  li {
+    margin: 0;
+    padding: 0;
+  }
+
+  ul {
+    overflow: hidden;
+    list-style: none;
+    .transition(max-height 1s linear);
+  }
+
+  ul ul {
+    margin-top: 0.3em;
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+
+  li {
+    padding: 0;
+    margin-bottom: (@padding-base-vertical * 1);
+    position: relative;
+    z-index: 10;
+
+    > a {
+      display: block;
+      margin-left: 2px;
+      border-left: 3px solid transparent;
+      color: @text-color;
+    }
+    > a:hover {
+      border-left-color: @link-color;
+      color: @gray-base;
+    }
+    &.open > a {
+      border-left-color: @brand-primary;
+      color: @gray-base;
+    }
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+
+    > ul {
+      max-height: 0;
+    }
+
+    &.active-trail,
+    &.open {
+      > ul {
+        max-height: 100vh;
+      }
+    }
+  }
+
+  nav {
+    li {
+      a {
+        padding-left: (@padding-base-horizontal * 1);
+      }
+      li {
+        a {
+          padding-left: (@padding-base-horizontal * 2);
+        }
+        li {
+          a {
+            padding-left: (@padding-base-horizontal * 3);
+          }
+          li {
+            a {
+              padding-left: (@padding-base-horizontal * 4);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.docs-banner {
+  margin-top: 29px;
+}

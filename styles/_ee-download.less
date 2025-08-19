@@ -1,0 +1,183 @@
+.cam-downloads {
+  display: table;
+  width: 100%;
+
+  // The Table will expand to fit all child elements
+  // We need an explicit height here so that 
+  // height: 100% can be resolve in child elements 
+  height: 348px;
+
+  a:hover,
+  a:focus {
+    text-shadow: none;
+    box-shadow: none;
+  }
+
+  ul.major {
+    width: 60px;
+  }
+
+  ul.patch {
+    width: 126px;
+  }
+
+  ul.server {
+    width: 116px;
+  }
+
+  div,
+  ul,
+  li {
+    position: relative;
+    overflow: visible;
+  }
+
+  ul,
+  li {
+    padding: 0;
+    margin: 0;
+  }
+
+  ul {
+    list-style: none;
+    font-size: 14px;
+    line-height: 1.25;
+    a:after {
+      margin-top: 0;
+    }
+  }
+
+
+  ul {
+    z-index: 20;
+  }
+
+  div {
+    z-index: 10;
+  }
+
+  li {
+    cursor: pointer;
+
+    > a {
+      display: inline-block;
+      padding: @padding-base-vertical @padding-base-horizontal;
+    }
+
+    &.active {
+      background-color: @brand-primary;
+
+      &:after {
+        content: '';
+        position: absolute;
+        display: block;
+        border-top: 8px solid transparent;
+        border-bottom: 8px solid transparent;
+        border-left: 8px solid @brand-primary;
+        margin-top: -8px;
+        top: 50%;
+        left: 100%;
+      }
+
+      > a {
+        color: #fff;
+
+        &:after {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+
+  > ul,
+  > div {
+    height: 100%;
+    display: table-cell;
+    vertical-align: top;
+  }
+
+  .wrapper {
+    height: 100%;
+    width: 100%;
+    display: table;
+    vertical-align: top;
+    position: relative;
+    background-color: #EEEEEE;
+
+
+    > ul,
+    > div {
+      position: relative;
+      display: table-cell;
+      height: 100%;
+      vertical-align: top;
+    }
+
+    .wrapper {
+      background-color: #D7D7D7;
+    }
+  }
+
+  .selected-server {
+    background-color: #C4C4C4;
+    a:hover,
+    a:focus {
+      .content-link(#C4C4C4);
+    }
+    .btn:hover,
+    .btn:focus {
+      text-shadow: none;
+      box-shadow: none;
+    }
+    padding: @padding-base-vertical @padding-base-horizontal;
+    position: relative;
+
+    &:after {
+      padding: @padding-base-vertical @padding-base-horizontal;
+      content: 'Please, select a version and server';
+      display: table-cell;
+      vertical-align: middle;
+      text-align: center;
+      width: 100%;
+      position: absolute;
+      top: 50%;
+      left: 0;
+      line-height: 28px;
+      height: 28px;
+      margin-top: -14px;
+      font-size: 14px;
+      color: @gray;
+      font-style: italic;
+      z-index: 10;
+    }
+
+    > div {
+      z-index: 9;
+      visibility: hidden;
+    }
+
+    &.accessible {
+      > div {
+        visibility: visible;
+      }
+      &:after {
+        display: none;
+      }
+    }
+  }
+
+  .info h3 {
+    text-transform: none;
+    font-size: 20px;
+    margin-top: 0;
+  }
+
+  a.details {
+    font-size: 14px;
+    margin-bottom: (@grid-gutter-width * 0.5);
+  }
+  .links {
+    text-align: right;
+  }
+}

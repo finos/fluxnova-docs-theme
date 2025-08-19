@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://ssgtm.camunda.org/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-PP9MHKW');</script>
+  <!-- End Google Tag Manager -->
+
+  <!-- meta -->
+  <meta charset="utf-8" />
+
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+  <meta name="viewport" content="width=device-width" />
+
+  <meta name="description" content="documentation of FINOS Flowave" />
+  <meta name="keywords" content="flowave, finos, open source, free, Apache License, Apache 2.0, workflow, BPMN, BPMN 2.0, camunda, bpm, BPMS, engine, platform, process, automation, community, documentation" />
+  <meta name="author" content="Flowave community" />
+  {{ if ($.Site.Params.section.versions)}}
+    {{ if (not (eq "latest" $.Site.Params.section.version))}}
+      <meta name="robots" content="noindex" />
+    {{ end }}
+  {{ end }}
+
+  <title>{{ .Title }} | docs.flowave.finos.org</title>
+
+  <meta name="generator" content="Hugo {{hugo.Version}}" />
+  <link rel="icon" href="{{.Site.BaseURL}}img/Flowave_icon.svg" type="image/svg+xml">
+  <link rel="icon" href="{{.Site.BaseURL}}img/Flowave_icon.png" type="image/png" />
+
+  {{ $styles := resources.Get "css/docs.css" | fingerprint }}
+
+  <link rel="stylesheet" href="{{ $styles.Permalink }}" integrity="{{ $styles.Data.Integrity }}">
+  <!-- add canonical link to latest if current version is not latest -->
+  {{- $permalink := .Permalink }}
+  {{- if ($.Site.Params.section.versions) }}
+    {{- $replacementPattern := print "${1}" "latest" "/${4}" }}
+    {{- $permalink = $permalink | replaceRE `(\/(manual|optimize)\/)([^\/]*\/)(.*)` $replacementPattern }}
+  <link rel="canonical" href="{{ $.Site.Params.canonicalBasePath }}{{ $permalink }}" />
+  {{- end }}
+</head>
+<body class="{{ .Params.bodyclass }}">
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PP9MHKW"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<nav class="navbar navbar-fixed-top">
+  <div class="navbar-container">
+    <div class="navbar-header">
+      <a href="{{ if $.Site.Params.section.version }}{{.Site.BaseURL}}{{else}}/{{end}}">
+      <img src="{{.Site.BaseURL}}img/Flowave_icon.png" style="width:40;height:40px; padding:0 5px 7px 0;">
+        <span class="brand-name">Flowave</span>
+        <span class="site-name">Docs</span>
+      </a>
+    </div><!-- / .navbar-header -->
+
+    {{ $currentPage := . }}
+    <ul class="header-menu">
+      {{range  .Site.Menus.main }}
+      <li {{ if or ($currentPage.IsMenuCurrent .Menu . ) ($currentPage.HasMenuCurrent .Menu . ) }} class="active" {{ end }} ><a href="{{.URL}}">{{.Name}}</a></li>
+      {{ end }}
+    </ul><!-- / .header-menu -->
+
+    <button class="site-menu-toggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <div class="search-field">
+      <input type="search" class="search-input" placeholder="Search…" />
+    </div><!-- / .search-field -->
+
+    <ul class="external-menu">
+      <li class="external"><a href="https://finos.org">FINOS</a></li>
+    </ul><!-- / .external-menu -->
+  </div>
+</nav>
+
+<div class="search-results">
+  <ul class="results-list">
+  </ul>
+  <footer>
+    <button class="btn btn-default page previous">
+      <span class="glyphicon glyphicon-chevron-left"></span>
+    </button>
+
+    <button class="search-close btn btn-default">
+      <span class="glyphicon glyphicon-remove"></span>
+    </button>
+
+    <button class="btn btn-default page next">
+      <span class="glyphicon glyphicon-chevron-right"></span>
+    </button>
+  </footer>
+</div>
+
+<div class="search-underlay"></div>
+
+<nav class="site-menu">
+  {{ partial "menu.html" . }}
+</nav>
+
+
+<div class="page-wrapper">

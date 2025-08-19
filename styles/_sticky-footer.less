@@ -1,0 +1,30 @@
+.page-footer {
+  overflow: visible;
+  font-size: 90%;
+  z-index: 40;
+
+  p {
+    font-size: 12px;
+    line-height: 1.6;
+  }
+
+  .pull-right {
+    margin-left: 1em;
+  }
+
+  > .row {
+    background: @navbar-default-bg;
+    border-top: 1px solid mix(@gray-light, @gray-lighter);
+    position: absolute;
+    bottom: 0;
+    max-height: 100%;
+    width: 100%;
+    overflow: hidden;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    transition: max-height 0.218s ease;
+    &:hover {
+      max-height: 80px;
+    }
+  }
+}
