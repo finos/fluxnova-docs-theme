@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "bootstrap": "3.4.1",
-    "bpmn-font": "^0.8.0",
+    "bpmn-font": "^0.12.0",
     "bpmn-js": "^0.11.0",
     "grunt": "^1.0.0",
     "grunt-browserify": "^4.0.0",
