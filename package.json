@@ -26,7 +26,7 @@
     "target": "./../fluxnova-docs-manual/themes/fluxnova"
   },
   "devDependencies": {
-    "bootstrap": "3.4.1",
+    "bootstrap": "5.3.8",
     "bpmn-font": "^0.12.0",
     "bpmn-js": "^0.11.0",
     "grunt": "^1.0.0",
