@@ -343,8 +343,15 @@ metaHeader.addEventListener('click', toggleMenuMeta);
  * Fetches the list of available documentation versions and populates a dropdown menu.
  **/
 function populateVersionSelector() {
-  const versionsJsonPath = location.pathname.replace(/\/manual\/[^/]+\/.*/,'/manual/versions.json');
+  // Support both "/manual/<version>" and deeper "/manual/<version>/..." routes.
+  const versionsJsonPath = location.pathname.replace(/\/manual\/[^/]+(\/.*)?$/, '/manual/versions.json');
   const versionSelector = document.getElementById('version-select');
+
+  // Exit quietly on pages that do not render the version dropdown.
+  if (!versionSelector) return;
+
+  // Keep a stable manual root so switching can rebuild the URL for another version.
+  const manualBasePath = versionsJsonPath.replace('versions.json', '');
 
   fetch(versionsJsonPath)
     .then(function(response) {
@@ -359,7 +366,9 @@ function populateVersionSelector() {
 
       // Get the current version from the URL path for comparison
       // e.g., if the URL is "https://.../manual/1.4/...", this gets "1.4"
-      const currentVersion = window.location.pathname.match(/manual\/([^/]+)/)[1];
+      const versionMatch = window.location.pathname.match(/manual\/([^/]+)/);
+      // Guard against non-manual paths where the regex does not match.
+      const currentVersion = versionMatch ? versionMatch[1] : null;
 
       // Create and append an <option> for each available version.
       versionSelector.innerHTML = '';
@@ -372,14 +381,28 @@ function populateVersionSelector() {
         }
         versionSelector.appendChild(option);
       });
+
       versionSelector.addEventListener('change', function(event) {
         const selectedVersion = event.target.value;
-        window.location.href = window.location.href.replace(/\/manual\/[^/]+\//,`/manual/${selectedVersion}/`);
+        const manualPathMatch = window.location.pathname.match(/\/manual\/[^/]+(\/.*)?$/);
+        const currentSubPath = manualPathMatch && manualPathMatch[1] ? manualPathMatch[1] : '/';
+        // Preserve query/hash while switching only the version segment.
+        window.location.href = (
+          window.location.origin +
+          manualBasePath +
+          selectedVersion +
+          currentSubPath +
+          window.location.search +
+          window.location.hash
+        );
       });
     })
     .catch(function(error) {
       console.error('Failed to load or process versions.json:', error);
-      versionSelector.innerHTML = '<option>Error loading versions</option>';
+      // Update the dropdown only when present (defensive in case DOM changes during load).
+      if (versionSelector) {
+        versionSelector.innerHTML = '<option>Error loading versions</option>';
+      }
     });
 }
 document.addEventListener('DOMContentLoaded', populateVersionSelector);
