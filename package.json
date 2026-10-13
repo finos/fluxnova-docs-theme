@@ -29,7 +29,7 @@
     "@docsearch/js": "^3.5.2",
     "bootstrap": "3.4.1",
     "bpmn-font": "^0.12.1",
-    "bpmn-js": "^0.25.0",
+    "bpmn-js": "^18.0.0",
     "grunt": "^1.6.2",
     "grunt-browserify": "^6.0.0",
     "grunt-cli": "^1.5.0",
