@@ -5,6 +5,7 @@
 var xhr = require('xhr');
 require('./classList');
 
+
 /********************************************************************\
  * DOM utilities                                                    *
 \********************************************************************/
@@ -25,10 +26,6 @@ function openParentItem(childItem, className) {
     openParentItem(parentItem, className);
   }
 }
-
-
-
-
 
 
 /********************************************************************\
@@ -66,7 +63,6 @@ if(!!bannerContainer) {
 /********************************************************************\
  * tic tac TOC                                                      *
 \********************************************************************/
-
 
 var toc = query('#TableOfContents');
 var navBar = query('.navbar-fixed-top');
@@ -163,16 +159,6 @@ siteMenuSubmenus.forEach(function (ul) {
 });
 
 
-
-
-
-
-
-
-
-
-
-
 /********************************************************************\
  * Page scrolling and anchor links                                  *
 \********************************************************************/
@@ -224,16 +210,6 @@ if (location.hash) {
 window.addEventListener('hashchange', shiftWindow);
 
 
-
-
-
-
-
-
-
-
-
-
 /********************************************************************\
  * Tutorial download boxes                                          *
 \********************************************************************/
@@ -245,16 +221,6 @@ queryAll('.gs-download-step-panel').forEach(function (panel) {
     panel.classList.toggle('open');
   });
 });
-
-
-
-
-
-
-
-
-
-
 
 
 /********************************************************************\
@@ -269,8 +235,6 @@ lightbox.addEventListener('click', function () {
   lightbox.classList.remove('open');
 });
 lightboxContent.appendChild(lightboxImg);
-
-
 
 document.body.appendChild(lightbox);
 
@@ -295,7 +259,6 @@ function showBigger(evt) {
   lightbox.classList.add('open');
 }
 
-
 function attachLightbox () {
   queryAll('.page-content figure.image img:not(.js-processed)').forEach(function (img) {
     img.classList.add('js-processed');
@@ -310,15 +273,15 @@ function attachLightbox () {
 docLoaded(attachLightbox);
 
 
-
 /********************************************************************\
  * Menu meta nav                                                    *
 \********************************************************************/
 
 var siteMenuMeta = query('.site-menu .meta');
-var metaToggle = query('.toggle', siteMenuMeta);
-var metaHeader = query('.header', siteMenuMeta);
+var metaToggle = siteMenuMeta ? query('.toggle', siteMenuMeta) : null;
+var metaHeader = siteMenuMeta ? query('.header', siteMenuMeta) : null;
 function toggleMenuMeta() {
+  if (!siteMenuMeta || !metaToggle) { return; }
   var mcl = siteMenuMeta.classList;
   var tcl = metaToggle.classList;
 
@@ -337,7 +300,9 @@ var versionLink = query('.site-menu .version a');
 if (versionLink) {
   versionLink.addEventListener('click', toggleMenuMeta);
 }
-metaHeader.addEventListener('click', toggleMenuMeta);
+if (metaHeader) {
+  metaHeader.addEventListener('click', toggleMenuMeta);
+}
 
 /**
  * Fetches the list of available documentation versions and populates a dropdown menu.
@@ -449,16 +414,6 @@ function addAnchors() {
 docLoaded(addAnchors);
 
 
-
-
-
-
-
-
-
-
-
-
 /********************************************************************\
  * No clue...                                                       *
 \********************************************************************/
@@ -530,6 +485,8 @@ docLoaded(function () {
   // Graceful exit: Do not initialize UI or throw errors if credentials are not provided
   if (!config) return;
 
+  // Pages using the fullpage layout (e.g. the OpenAPI spec) have no search slot
+  if (!document.querySelector('#docsearch')) return;
   // Render the modal-driven search field into our targeting anchor slot
   docsearch({
     container: '#docsearch',
