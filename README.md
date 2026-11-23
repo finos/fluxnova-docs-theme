@@ -86,6 +86,14 @@ indexName = "your-index-name"
 
 If Algolia configuration is not provided, DocSearch is not initialized and no search UI is displayed. The site will continue to function normally without console errors.
 
+### Searching a specific documentation version
+Search results are scoped to the documentation version being viewed. The version is read from the page URL (`/manual/<version>/...`); on URLs without a version segment (e.g. a local `hugo server`) the Hugo parameter `params.version` is used. The theme sends `facetFilters: ["version:<version>"]` with every query, so the index needs:
+
+- a `version` attribute on every record (for example taken from the crawled URL), and
+- `version` configured as a facet (`attributesForFaceting: ["filterOnly(version)"]`).
+
+If the facet is missing, the theme falls back to unfiltered search instead of returning no results. The theme has no `<article>` or `<main>` element, so crawler selectors should be scoped to `.page-content` to keep the navigation and footer out of the index.
+
 ## Contributing
 For any questions, bugs or feature requests please open an [issue](https://github.com/finos/fluxnova-docs-theme/issues)
 For anything else please send an email to help@finos.org.
